@@ -27,7 +27,7 @@ class apple_tv_scraper(Scraper):
     def run(self):
         for url, source, extension in zip(self.source_urls,self.source_filenames,self.source_extensions):
             filename = source + extension
-            print url, filename
+            print (url, filename)
 
             self.return_data = False
             self.make_request(url, filename)
@@ -44,7 +44,7 @@ class apple_tv_scraper(Scraper):
             break
 
         for url, filename in sorted(self.filename_for_url.items(), key=operator.itemgetter(1)):
-            print filename
+            print(filename)
 
         self.output_urls()
 
@@ -65,7 +65,7 @@ class apple_tv_scraper(Scraper):
             self.filename_for_url[url] = filename
 
     def output_urls(self):
-        file = open('urls_aria.txt', "wb")
+        file = open('urls_aria.txt', "w")
         for x in sorted(self.filename_for_url.items(), key=operator.itemgetter(1)):
             out_str = "%s\n out=%s" % (x[0],x[1])
             file.write(out_str + "\n")
