@@ -69,11 +69,11 @@ class Scraper(object):
             time.sleep(self.delay)
 
         if payload:
-            print "posting url: " + url
+            print ("posting url: " + url)
             self.response = self.s.post(url,data=payload,timeout=20,verify=False)
         else:
 
-            print "getting url: " + url
+            print ("getting url: " + url)
             if self.s is not None:
                 # print "using session object"
                 # print self.s.cookies
@@ -84,9 +84,9 @@ class Scraper(object):
         # for item in self.response.headers:
         #     print item, self.response.headers[item]
         # print self.response.content
-        print self.response.status_code
-        print "status code = [%s]" % self.response.status_code
-        print
+        print (self.response.status_code)
+        print ("status code = [%s]" % self.response.status_code)
+        print()
 
         self.check_valid_response()
 
@@ -106,7 +106,9 @@ class Scraper(object):
         return self.response_content
 
     def check_valid_response(self):
-        if 'Request unsuccessful' in self.response.content:
+        if self.response.status_code == 200:
+            return
+        if '500' in self.response.status_code:
             raise Exception("error: request unsuccessful")
         if '//content.incapsula.com/jsTest.html' in self.response.content:
             raise Exception("error: //content.incapsula.com/jsTest.html found in source")
@@ -121,7 +123,7 @@ class Scraper(object):
         file = open(output_path, "wb")
         file.write(self.response_content)
         file.close()
-        print self.count,"saved to:",output_path
+        print (self.count,"saved to:",output_path)
 
     def get_mtime_for_filename(self,filename=None):
         try:
