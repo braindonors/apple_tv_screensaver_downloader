@@ -1,4 +1,8 @@
 [this project is incomplete and currently a work in progress]
+## 7/25/23
+- Changed Text file Outputs to 'w' rather than 'wb' for Python3 Compatibility
+- Enclosed print statements in parentheses print (xx)
+
 
 ## todo
 
